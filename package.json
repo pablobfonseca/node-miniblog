@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "A simple miniblog written in node",
   "main": "index.js",
-  "test": "node test/test.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
   "repository": "http://github.com/pablobfonseca/node-miniblog.git",
   "author": "Pablo Fonseca <pablofonseca777@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "roast.it": "^1.0.5"
+  }
 }
