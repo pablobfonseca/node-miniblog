@@ -11,6 +11,7 @@
   "author": "Pablo Fonseca <pablofonseca777@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "marked": "^0.3.6",
     "roast.it": "^1.0.5"
   }
 }
