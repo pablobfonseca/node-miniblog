@@ -13,10 +13,32 @@ BlogRoute.prototype.route = function route() {
   var index = url.indexOf('/blog/') + 1;
   var path  = url.slice(index) + '.md';
 
-  this.message.readTextFile(path, function dummyTest(err, rawContent) {
-    this.res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    this.res.end(rawContent);
-  }.bind(this));
+  this.message.readTextFile(path, this.readPostHtmlView.bind(this));
+};
+
+BlogRoute.prototype.readPostHtmlView = function readPostHtmlView(err, rawContent) {
+  if (err) {
+    this.res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf8' });
+    this.res.end('Post Not Found.')
+    return;
+  }
+
+  this.rawContent = rawContent;
+  this.message.readTextFile('view/blogPost.html', this.renderPost.bind(this));
+};
+
+BlogRoute.prototype.renderPost = function renderPost(err, html) {
+  if (err) {
+    this.res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf8' });
+    this.res.end('Internal Error')
+    return;
+  }
+
+  var htmlContent = this.message.marked(this.rawContent);
+  var responseContent = this.message.mustacheTemplate(html, { postContent: htmlContent });
+
+  this.res.writeHead(200, { 'Content-Type': 'text/html; charset=utf8' });
+  this.res.end(responseContent);
 };
 
 module.exports = BlogRoute;

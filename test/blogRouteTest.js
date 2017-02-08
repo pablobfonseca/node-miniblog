@@ -25,3 +25,14 @@ roast.it('Read raw post with path', function readRawPostWithPath() {
 
   return messageMock.readTextFileCalledWithPath === 'blog/a-simple-test.md' && messageMock.hasCallback;
 });
+
+roast.it('Read post view with path', function readPostViewWithPath() {
+  var messageMock = new MessageMock();
+  var rawContent = 'content';
+
+  var route = new BlogRoute({message: messageMock});
+
+  route.readPostHtmlView(null, rawContent);
+
+  return messageMock.readTextFileCalledWithPath !== '' && messageMock.hasCallback;
+});
