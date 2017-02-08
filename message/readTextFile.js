@@ -8,3 +8,5 @@ function readTextFile(relativePath, fn) {
     fn(err, text);
   });
 }
+
+module.exports = readTextFile;
