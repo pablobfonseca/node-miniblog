@@ -4,6 +4,7 @@
   "description": "A simple miniblog written in node",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "node test/test.js"
   },
   "repository": "http://github.com/pablobfonseca/node-miniblog.git",
