@@ -3,6 +3,6 @@ var mustacheTemplate = require('./mustacheTemplate');
 var marked = require('marked');
 
 module.exports = {
-  readTextFile: readTextFile
+  readTextFile: readTextFile,
   marked: marked
 };
