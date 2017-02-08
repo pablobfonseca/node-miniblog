@@ -18,9 +18,7 @@ BlogRoute.prototype.route = function route() {
 
 BlogRoute.prototype.readPostHtmlView = function readPostHtmlView(err, rawContent) {
   if (err) {
-    this.res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf8' });
-    this.res.end('Post Not Found.')
-    return;
+    this.renderError(404, 'Post Not Found');
   }
 
   this.rawContent = rawContent;
@@ -29,9 +27,7 @@ BlogRoute.prototype.readPostHtmlView = function readPostHtmlView(err, rawContent
 
 BlogRoute.prototype.renderPost = function renderPost(err, html) {
   if (err) {
-    this.res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf8' });
-    this.res.end('Internal Error')
-    return;
+    this.renderError(500, 'Internal Error');
   }
 
   var htmlContent = this.message.marked(this.rawContent);
@@ -39,6 +35,12 @@ BlogRoute.prototype.renderPost = function renderPost(err, html) {
 
   this.res.writeHead(200, { 'Content-Type': 'text/html; charset=utf8' });
   this.res.end(responseContent);
+};
+
+BlogRoute.prototype.renderError = function renderError(statusCode, errorMessage) {
+  this.res.writeHead(statusCode, { 'Content-Type': 'text/plain; charset=utf8' });
+  this.res.end(errorMessage)
+  return;
 };
 
 module.exports = BlogRoute;
