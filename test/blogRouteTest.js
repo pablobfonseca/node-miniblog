@@ -1,5 +1,6 @@
 var roast = require('roast.it');
 var MessageMock = require('./mock/messageMock');
+var ResponseMock = require('./mock/responseMock');
 var BlogRoute = require('../route/blogRoute');
 
 roast.it('Is valid blog route', function isValidBlogRoute() {
@@ -35,4 +36,15 @@ roast.it('Read post view with path', function readPostViewWithPath() {
   route.readPostHtmlView(null, rawContent);
 
   return messageMock.readTextFileCalledWithPath !== '' && messageMock.hasCallback;
+});
+
+roast.it('Respond with full post', function respondWithFullPost() {
+  var messageMock = new MessageMock();
+  var responseMock = new ResponseMock();
+
+  var route = new BlogRoute({message: messageMock, res: responseMock});
+
+  route.renderPost(null, '');
+
+  return responseMock.result.indexOf('200') >= 0;
 });
